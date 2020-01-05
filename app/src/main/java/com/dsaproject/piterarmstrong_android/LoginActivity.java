@@ -23,7 +23,7 @@ import static android.text.InputType.TYPE_NULL;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //---------------------Attributes----------------------//
+    //----------------Attributes-----------------//
     private EditText usrtxt;
     private EditText pwdtxt;
     private Button loginbtn;
@@ -33,10 +33,10 @@ public class LoginActivity extends AppCompatActivity {
 
     //SHARED PREFERENCES
     private Boolean authenticated; //Provisional
-    //-----------------------------------------------------//
+    //-------------------------------------------//
 
 
-    //---------------------API Methods----------------------//
+    //---------------------------------------------------------API Methods------------------------------------------------------------//
     public void login(User usr){
         //Method login() of the Users API Interface
 
@@ -45,9 +45,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
-                    //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    User usr = response.body();
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("loggeduser", usr);
+                    startActivity(intent);
+                    finish(); //-----Response activity (close session - delete SHAREDPREFERENCES)
+
                     //intent.putExtra() User, Retrofit/APIinterface instances ... ???????????????????????????? OR close existing instances ?????
-                    //startActivity(intent);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Error authenticating the User: " + response.code(), Toast.LENGTH_LONG).show();
@@ -62,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    //------------------------------------------------------//
+    //--------------------------------------------------------------------------------------------------------------------------------//
 
 
     //-----------------------------------------------------Activity Methods-----------------------------------------------------------//
@@ -78,10 +83,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Remove title bar
         this.getSupportActionBar().hide();
-
         setContentView(R.layout.activity_login);
 
         usrtxt = findViewById(R.id.userEditText);
@@ -91,6 +94,9 @@ public class LoginActivity extends AppCompatActivity {
         loginbar = findViewById(R.id.loginProgressBar);
 
         showProgress(false);
+
+        //Provisional
+        authenticated = false;
 
         Retrofit retrofitinstance = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/dsaApp/") //Later on we will put the server's IP address, meanwhile in localhost
@@ -141,7 +147,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //---------------------------------------------------------------------------------------------------------------------------------//
     }
+    //---------------------------------------------------------------------------------------------------------------------------------//
 }

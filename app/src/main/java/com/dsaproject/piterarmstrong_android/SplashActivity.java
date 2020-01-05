@@ -11,10 +11,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Remove title bar
         this.getSupportActionBar().hide();
-
         setContentView(R.layout.activity_splash);
 
         final Handler h = new Handler();
@@ -24,6 +22,7 @@ public class SplashActivity extends AppCompatActivity {
                 //Open the Login Activity after 2 seconds
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         },2000);
     }

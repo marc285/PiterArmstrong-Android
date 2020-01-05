@@ -1,6 +1,10 @@
 package com.dsaproject.piterarmstrong_android.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable { //Serializable so that it can be passed between Activities
+    //Singleton
+    private static User userinstance;
 
     private String username;
     private String password;
@@ -25,10 +29,21 @@ public class User {
         this.password = password;
     }
 
-    public User() {
+    /*public User() {
         //Empty constructor
+    }*/
+
+    //Singleton
+    private User(){}
+
+    public static synchronized User getInstance(){
+        if(userinstance == null) {
+            userinstance = new User();
+        }
+        return userinstance;
     }
 
+    //----------------------Methods----------------------//
     public String getUsername() {
         return username;
     }
@@ -84,4 +99,15 @@ public class User {
     public void setPieces(Integer pieces) {
         this.pieces = pieces;
     }
+
+    public void closeInstance(){
+        setUsername(null);
+        setPassword(null);
+        setHealth(null);
+        setDefense(null);
+        setAttack(null);
+        setPieces(null);
+        setMoney(null);
+    }
+    //---------------------------------------------------//
 }
