@@ -45,23 +45,69 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
-                    User usr = response.body();
+
+                    //We "fill" the logged User instance
+                    User loggedUsr = User.getInstance();
+                    loggedUsr.setUsername(response.body().getUsername());
+                    loggedUsr.setPassword(response.body().getPassword());
+                    //The other parameters are set when doing getUser() when opening a new activity
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("loggeduser", usr);
+                    //intent.putExtra("loggeduser", usr);
+
                     startActivity(intent);
                     finish(); //-----Response activity (close session - delete SHAREDPREFERENCES)
-
-                    //intent.putExtra() User, Retrofit/APIinterface instances ... ???????????????????????????? OR close existing instances ?????
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Error authenticating the User: " + response.code(), Toast.LENGTH_LONG).show();
+                    if(response.code() == 404)
+                        Toast.makeText(getApplicationContext(), "Authentication error: " + response.code() + "\n Invalid username or password" , Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Authentication error: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
                 }
                 showProgress(false);
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                showProgress(false);
+            }
+        });
+    }
+
+    public void register(final String usrname, final String pwd){
+        //Method register() of the Users API Interface
+
+        Call<Void> call = usersAPI.register(new User(usrname, pwd));
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+
+                    //We "fill" the logged User instance
+                    User loggedUsr = User.getInstance();
+                    loggedUsr.setUsername(usrname);
+                    loggedUsr.setPassword(pwd);
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    //intent.putExtra("loggeduser", usr);
+
+                    startActivity(intent);
+                    finish(); //-----Response activity (close session - delete SHAREDPREFERENCES)
+                }
+                else{
+                    if(response.code() == 400)
+                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\n Bad Request (Error in parameters' format)" , Toast.LENGTH_LONG).show();
+                    else if(response.code() == 409)
+                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\n Already existing User" , Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
+                }
+                showProgress(false);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 showProgress(false);
             }
@@ -143,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error: you must fill User Name and Password fields", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    //Register
+                    register(usrtxt.getText().toString(), pwdtxt.getText().toString());
                 }
             }
         });

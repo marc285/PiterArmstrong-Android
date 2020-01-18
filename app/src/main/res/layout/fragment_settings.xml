@@ -6,15 +6,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/newPwdEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/currentPwdEditText"
+        app:layout_constraintStart_toStartOf="@+id/currentPwdEditText"
+        app:layout_constraintTop_toBottomOf="@+id/currentPwdEditText" />
+
     <TextView
         android:id="@+id/settingstext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Settings"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/currentPwdEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="Current Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changepwdtext" />
+
+    <TextView
+        android:id="@+id/changepwdtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Change your Password:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/currentPwdEditText"
+        app:layout_constraintTop_toBottomOf="@+id/settingstext" />
+
+    <Button
+        android:id="@+id/changePwdButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_rounded_border_primary"
+        android:text="Change your Password"
+        app:layout_constraintEnd_toEndOf="@+id/currentPwdEditText"
+        app:layout_constraintStart_toStartOf="@+id/currentPwdEditText"
+        app:layout_constraintTop_toBottomOf="@+id/newPwdEditText" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/button_rounded_border_accent"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="@+id/changePwdButton"
+        app:layout_constraintStart_toStartOf="@+id/changePwdButton"
+        app:layout_constraintTop_toBottomOf="@+id/changePwdButton" />
+
+    <Button
+        android:id="@+id/deleteUserButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_rounded_accent"
+        android:text="Delete your Account"
+        app:layout_constraintEnd_toEndOf="@+id/logoutButton"
+        app:layout_constraintStart_toStartOf="@+id/logoutButton"
+        app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
+
+    <TextView
+        android:id="@+id/appinfotext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:text="Piter Armstrong: The Video Game.                                                      Created by Marc Cayuelas, Julen Garralaga, Alex López and  Bernat Sánchez, students of DSA at EETAC (UPC)                                               https://github.com/marc285/PiterArmstrong-Android"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/deleteUserButton"
+        app:layout_constraintStart_toStartOf="@+id/deleteUserButton" />
+
+    <TextView
+        android:id="@+id/infodeletetext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="To delete this account, you must type your current password"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/deleteUserButton"
+        app:layout_constraintStart_toStartOf="@+id/deleteUserButton"
+        app:layout_constraintTop_toBottomOf="@+id/deleteUserButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

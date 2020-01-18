@@ -2,13 +2,35 @@ package com.dsaproject.piterarmstrong_android.services;
 
 import com.dsaproject.piterarmstrong_android.models.User;
 
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface UserManagerService {
 
-    @GET("/usermanager/login")
-    Call<User> login(User u);
+    @POST("/usermanager/login")
+    Call<User> login(@Body User usr);
 
+    @POST("/usermanager/register")
+    Call<Void> register(@Body User usr);
 
+    @GET("/usermanager/users")
+    Call <List<User>> getUsers();
+
+    @GET("/usermanager/users/{name}")
+    Call <User> getUser(@Path("name") String usrname);
+
+    @PUT("/usermanager/users/{name}/update")
+    Call <Void> updateUser(@Body User usr, @Path("name") String usrname);
+
+    @DELETE("/usermanager/users/{name}/delete")
+    Call <Void> deleteUser(@Body String pwd, @Path("name") String usrname);
+
+    //Objects functions
 }

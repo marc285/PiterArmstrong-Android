@@ -16,12 +16,12 @@ import com.dsaproject.piterarmstrong_android.models.User;
 
 public class DashboardFragment extends Fragment {
 
-    private User loggedusr;
+    //private User loggedusr;
 
-    public DashboardFragment(User usr){
+/*    public DashboardFragment(){
         //Constructor gets the logged User when invoked
-        this.loggedusr = usr;
-    }
+        //this.loggedusr = User.getInstance();
+    }*/
 
     @Nullable
     @Override
@@ -33,6 +33,7 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         //Initialize and fill all the Dashboard fields
         TextView usertxt = (TextView) getView().findViewById(R.id.userTextView);
         TextView healthtxt = (TextView) getView().findViewById(R.id.healthTextView);
@@ -43,12 +44,12 @@ public class DashboardFragment extends Fragment {
         RecyclerView objectsRV = (RecyclerView) getView().findViewById(R.id.objectsRecyclerView);
         Button playbtn = (Button) getView().findViewById(R.id.playButton);
 
-        usertxt.setText(loggedusr.getUsername());
-        healthtxt.setText(loggedusr.getHealth());
-        defensetxt.setText(loggedusr.getDefense());
-        attacktxt.setText(loggedusr.getAttack());
-        piecestxt.setText(loggedusr.getPieces());
-        moneytxt.setText(loggedusr.getMoney());
+        usertxt.setText(User.getInstance().getUsername());
+        healthtxt.setText(User.getInstance().getHealth());
+        defensetxt.setText(User.getInstance().getDefense());
+        attacktxt.setText(User.getInstance().getAttack());
+        piecestxt.setText(User.getInstance().getPieces());
+        moneytxt.setText(User.getInstance().getMoney());
 
         //RecyclerView
 
