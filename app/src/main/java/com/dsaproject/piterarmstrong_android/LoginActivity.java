@@ -156,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
             //Then we expect a User/null, if we get a null we display that there has been a modification in the user authenticated in the app
 
             //Block EditTexts so that the login is with the user already authenticated in the app
-            usrtxt.setInputType(TYPE_NULL);
-            pwdtxt.setInputType(TYPE_NULL);
+            //usrtxt.setInputType(TYPE_NULL);
+            //pwdtxt.setInputType(TYPE_NULL);
 
             showProgress(true);
             //login with the user stored in SHARED PREFERENCES

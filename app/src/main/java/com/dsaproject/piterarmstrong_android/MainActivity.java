@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import com.dsaproject.piterarmstrong_android.models.User;
 import com.dsaproject.piterarmstrong_android.services.UserManagerService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     //public User userinstance = null;
     private ProgressBar updatebar;
     private UserManagerService usersAPI;
+    private List<User> userlist;
 
     //---------------------------------------------------------API Methods------------------------------------------------------------//
     public void updateStats(String usrname){
@@ -78,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
             this.updatebar.setVisibility(View.VISIBLE);
         else
             this.updatebar.setVisibility(View.GONE);
+    }
+
+    public void closeActivity(){
+        this.finish();
     }
 
     @Override
