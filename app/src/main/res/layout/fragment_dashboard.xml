@@ -169,12 +169,11 @@
                     android:id="@+id/objectstext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Inventory"
                     android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/moneyicon"
                     app:layout_constraintTop_toBottomOf="@+id/moneyicon" />
 
                 <Button
@@ -222,17 +221,6 @@
                     app:layout_constraintBottom_toBottomOf="@+id/screenicon"
                     app:layout_constraintEnd_toStartOf="@+id/screenicon"
                     app:layout_constraintTop_toTopOf="@+id/screenicon" />
-
-                <!-- ProgressBar
-                    android:id="@+id/updateProgressBar"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:indeterminate="true"
-                    app:layout_constraintBottom_toBottomOf="@+id/objectsRecyclerView"
-                    app:layout_constraintEnd_toEndOf="@+id/objectsRecyclerView"
-                    app:layout_constraintStart_toStartOf="@+id/objectsRecyclerView"
-                    app:layout_constraintTop_toBottomOf="@+id/objectstext" /-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

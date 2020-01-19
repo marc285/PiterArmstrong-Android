@@ -13,12 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dsaproject.piterarmstrong_android.models.Objeto;
+import com.dsaproject.piterarmstrong_android.models.ObjetoList;
 import com.dsaproject.piterarmstrong_android.models.User;
 import com.dsaproject.piterarmstrong_android.services.UserManagerService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,34 +72,37 @@ public class DashboardFragment extends Fragment {
                     piecestxt.setText(String.valueOf(User.getInstance().getPieces()));
                     moneytxt.setText(String.valueOf(User.getInstance().getMoney()));
                     screentxt.setText(String.valueOf(User.getInstance().getScreen()));
-
                 }
-                else{
-                    if(response.code() == 404)
-                        Toast.makeText(context, "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
-                }
-                //showProgress(false);
+                else
+                    Toast.makeText(context, "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                //showProgress(false);
             }
         });
 
-        /*Call<Objeto> call2 = usersAPI.getUserObjects(User.getInstance().getUsername());
-        call2.enqueue(new Callback<Objeto>() {
+        Call<List<Objeto>> call2 = usersAPI.getUserObjects(usrname);
+        call2.enqueue(new Callback<List<Objeto>>() {
             @Override
-            public void onResponse(Call<Objeto> call, Response<Objeto> response) {
+            public void onResponse(Call<List<Objeto>> call, Response<List<Objeto>> response) {
+                if(response.isSuccessful()) {
+                    //We "fill" the logged User Object List (instance)
+                    ObjetoList loggedUsrList = ObjetoList.getInstance();
+                    loggedUsrList.setList(response.body());
 
+                    objectsRV.setAdapter(new ObjectsRVAdapter(ObjetoList.getInstance().getList()));
+                }
+                else
+                    Toast.makeText(context, "Error getting User Object List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Objeto> call, Throwable t) {
-
+            public void onFailure(Call<List<Objeto>> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }); */
+        });
     }
     //--------------------------------------------------------------------------------------------------------------------------------//
 
@@ -126,6 +133,8 @@ public class DashboardFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         usersAPI = retrofitinstance.create(UserManagerService.class);
+
+        objectsRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
         updateStats(User.getInstance().getUsername());
 

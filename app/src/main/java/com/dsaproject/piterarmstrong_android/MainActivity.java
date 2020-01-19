@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dsaproject.piterarmstrong_android.models.Objeto;
+import com.dsaproject.piterarmstrong_android.models.ObjetoList;
 import com.dsaproject.piterarmstrong_android.models.User;
 import com.dsaproject.piterarmstrong_android.services.UserManagerService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomnNav;
-    //private ProgressBar updatebar;
     private UserManagerService usersAPI;
 
     //---------------------------------------------------------API Methods------------------------------------------------------------//
@@ -51,42 +49,36 @@ public class MainActivity extends AppCompatActivity {
                     loggedUsr.setMoney(response.body().getMoney());
                     loggedUsr.setScreen(response.body().getScreen());
                 }
-                else{
-                    if(response.code() == 404)
-                        Toast.makeText(getApplicationContext(), "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
-                }
-                //showProgress(false);
+                else
+                    Toast.makeText(getApplicationContext(), "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                //showProgress(false);
             }
         });
 
-        /*Call<Objeto> call2 = usersAPI.getUserObjects(User.getInstance().getUsername());
-        call2.enqueue(new Callback<Objeto>() {
+        Call<List<Objeto>> call2 = usersAPI.getUserObjects(usrname);
+        call2.enqueue(new Callback<List<Objeto>>() {
             @Override
-            public void onResponse(Call<Objeto> call, Response<Objeto> response) {
-
+            public void onResponse(Call<List<Objeto>> call, Response<List<Objeto>> response) {
+                if(response.isSuccessful()) {
+                    //We "fill" the logged User Object List (instance)
+                    ObjetoList loggedUsrList = ObjetoList.getInstance();
+                    loggedUsrList.setList(response.body());
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Error getting User Object List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Objeto> call, Throwable t) {
-
+            public void onFailure(Call<List<Objeto>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }); */
+        });
     }
     //--------------------------------------------------------------------------------------------------------------------------------//
-
-/*    public void showProgress (boolean visible){
-        //Sets the visibility/invisibility of loginProgressBar
-        if(visible)
-            this.updatebar.setVisibility(View.VISIBLE);
-        else
-            this.updatebar.setVisibility(View.GONE);
-    }*/
 
     public void closeActivity(){
         this.finish();

@@ -37,7 +37,7 @@ public interface UserManagerService {
     Call <String> getUserScreen(@Path("name") String usrname);
 
     @GET("usermanager/users/{name}/objects")
-    Call <Objeto> getUserObjects(@Path("name") String usrname);
+    Call <List<Objeto>> getUserObjects(@Path("name") String usrname);
 
     @POST("usermanager/users/{name}/addobject")
     Call <Void> addObjectToUser(@Path("name") String usrname, String obj);
