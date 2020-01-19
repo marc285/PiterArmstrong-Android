@@ -21,8 +21,8 @@
         android:id="@+id/welcometext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Welcome back,"
         android:textSize="24sp"
@@ -41,160 +41,201 @@
         app:layout_constraintStart_toEndOf="@+id/welcometext"
         app:layout_constraintTop_toTopOf="@+id/welcometext" />
 
-    <ImageView
-        android:id="@+id/healthicon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp"
-        android:contentDescription="@null"
-        app:layout_constraintStart_toStartOf="@+id/welcometext"
-        app:layout_constraintTop_toBottomOf="@+id/welcometext"
-        app:srcCompat="@drawable/health_icon" />
-
-    <ImageView
-        android:id="@+id/defenseicon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/healthicon"
-        app:srcCompat="@drawable/defense_icon" />
-
-    <ImageView
-        android:id="@+id/attackicon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@null"
-        app:layout_constraintStart_toStartOf="@+id/healthicon"
-        app:layout_constraintTop_toBottomOf="@+id/defenseicon"
-        app:srcCompat="@drawable/attack_icon" />
-
-    <ImageView
-        android:id="@+id/piecesicon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@null"
-        app:layout_constraintEnd_toEndOf="@+id/defenseicon"
-        app:layout_constraintTop_toBottomOf="@+id/attackicon"
-        app:srcCompat="@drawable/pieces_icon" />
-
-    <ImageView
-        android:id="@+id/moneyicon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:contentDescription="@null"
-        app:layout_constraintStart_toStartOf="@+id/attackicon"
-        app:layout_constraintTop_toBottomOf="@+id/piecesicon"
-        app:srcCompat="@drawable/money_icon" />
-
-    <TextView
-        android:id="@+id/healthTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/press_start_2p"
-        android:text="health"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/healthicon"
-        app:layout_constraintStart_toEndOf="@+id/healthicon"
-        app:layout_constraintTop_toTopOf="@+id/healthicon" />
-
-    <TextView
-        android:id="@+id/defenseTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/press_start_2p"
-        android:text="defense"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/defenseicon"
-        app:layout_constraintEnd_toStartOf="@+id/defenseicon"
-        app:layout_constraintTop_toTopOf="@+id/defenseicon" />
-
-    <TextView
-        android:id="@+id/attackTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/press_start_2p"
-        android:text="attack"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/attackicon"
-        app:layout_constraintStart_toEndOf="@+id/attackicon"
-        app:layout_constraintTop_toTopOf="@+id/attackicon" />
-
-    <TextView
-        android:id="@+id/piecesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/press_start_2p"
-        android:text="pieces"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/piecesicon"
-        app:layout_constraintEnd_toStartOf="@+id/piecesicon"
-        app:layout_constraintTop_toTopOf="@+id/piecesicon" />
-
-    <TextView
-        android:id="@+id/moneyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/press_start_2p"
-        android:text="money"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/moneyicon"
-        app:layout_constraintStart_toEndOf="@+id/moneyicon"
-        app:layout_constraintTop_toTopOf="@+id/moneyicon" />
-
-    <TextView
-        android:id="@+id/objectstext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Inventory"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/objectsRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/objectsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/moneyicon" />
-
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/button_rounded_border_lightblue"
-        android:text="PLAY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/objectsRecyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/statsSwipeRefreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/playButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/objectstext" />
+        app:layout_constraintTop_toBottomOf="@+id/userTextView">
 
-    <ProgressBar
-        android:id="@+id/updateProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="@+id/objectsRecyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/objectsRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/objectsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/objectstext" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/healthicon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/health_icon" />
+
+                <ImageView
+                    android:id="@+id/defenseicon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/healthicon"
+                    app:srcCompat="@drawable/defense_icon" />
+
+                <ImageView
+                    android:id="@+id/attackicon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@+id/healthicon"
+                    app:layout_constraintTop_toBottomOf="@+id/healthicon"
+                    app:srcCompat="@drawable/attack_icon" />
+
+                <ImageView
+                    android:id="@+id/piecesicon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintEnd_toEndOf="@+id/defenseicon"
+                    app:layout_constraintTop_toTopOf="@+id/attackicon"
+                    app:srcCompat="@drawable/pieces_icon" />
+
+                <ImageView
+                    android:id="@+id/moneyicon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintStart_toStartOf="@+id/attackicon"
+                    app:layout_constraintTop_toBottomOf="@+id/attackicon"
+                    app:srcCompat="@drawable/money_icon" />
+
+                <TextView
+                    android:id="@+id/healthTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/press_start_2p"
+                    android:text="health"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/healthicon"
+                    app:layout_constraintStart_toEndOf="@+id/healthicon"
+                    app:layout_constraintTop_toTopOf="@+id/healthicon" />
+
+                <TextView
+                    android:id="@+id/defenseTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/press_start_2p"
+                    android:text="defense"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/defenseicon"
+                    app:layout_constraintEnd_toStartOf="@+id/defenseicon"
+                    app:layout_constraintTop_toTopOf="@+id/defenseicon" />
+
+                <TextView
+                    android:id="@+id/attackTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/press_start_2p"
+                    android:text="attack"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/attackicon"
+                    app:layout_constraintStart_toEndOf="@+id/attackicon"
+                    app:layout_constraintTop_toTopOf="@+id/attackicon" />
+
+                <TextView
+                    android:id="@+id/piecesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/press_start_2p"
+                    android:text="pieces"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/piecesicon"
+                    app:layout_constraintEnd_toStartOf="@+id/piecesicon"
+                    app:layout_constraintTop_toTopOf="@+id/piecesicon" />
+
+                <TextView
+                    android:id="@+id/moneyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/press_start_2p"
+                    android:text="money"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/moneyicon"
+                    app:layout_constraintStart_toEndOf="@+id/moneyicon"
+                    app:layout_constraintTop_toTopOf="@+id/moneyicon" />
+
+                <TextView
+                    android:id="@+id/objectstext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Inventory"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/moneyicon" />
+
+                <Button
+                    android:id="@+id/playButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_rounded_border_lightblue"
+                    android:text="PLAY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/objectsRecyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/playButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/objectstext" />
+
+                <ImageView
+                    android:id="@+id/screenicon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintEnd_toEndOf="@+id/piecesicon"
+                    app:layout_constraintTop_toTopOf="@+id/moneyicon"
+                    app:srcCompat="@drawable/screen_icon" />
+
+                <TextView
+                    android:id="@+id/screenTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/press_start_2p"
+                    android:text="screen"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/screenicon"
+                    app:layout_constraintEnd_toStartOf="@+id/screenicon"
+                    app:layout_constraintTop_toTopOf="@+id/screenicon" />
+
+                <!-- ProgressBar
+                    android:id="@+id/updateProgressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:indeterminate="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/objectsRecyclerView"
+                    app:layout_constraintEnd_toEndOf="@+id/objectsRecyclerView"
+                    app:layout_constraintStart_toStartOf="@+id/objectsRecyclerView"
+                    app:layout_constraintTop_toBottomOf="@+id/objectstext" /-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

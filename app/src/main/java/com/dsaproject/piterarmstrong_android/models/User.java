@@ -8,13 +8,14 @@ public class User implements Serializable { //Serializable so that it can be pas
 
     private String username;
     private String password;
-    private Integer health;
-    private Integer defense;
-    private Integer attack;
-    private Integer money;
-    private Integer pieces;
+    private int health;
+    private int defense;
+    private int attack;
+    private int money;
+    private int pieces;
+    private int screen; //(Level)
 
-    public User(String username, String password, Integer health, Integer defense, Integer attack, Integer money, Integer pieces) {
+    public User(String username, String password, int health, int defense, int attack, int money, int pieces, int screen) {
         this.username = username;
         this.password = password;
         this.health = health;
@@ -22,6 +23,7 @@ public class User implements Serializable { //Serializable so that it can be pas
         this.attack = attack;
         this.money = money;
         this.pieces = pieces;
+        this.screen = screen;
     }
 
     public User(String username, String password) {
@@ -60,54 +62,59 @@ public class User implements Serializable { //Serializable so that it can be pas
         this.password = password;
     }
 
-    public Integer getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(Integer health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public Integer getDefense() {
+    public int getDefense() {
         return defense;
     }
 
-    public void setDefense(Integer defense) {
+    public void setDefense(int defense) {
         this.defense = defense;
     }
 
-    public Integer getAttack() {
+    public int getAttack() {
         return attack;
     }
 
-    public void setAttack(Integer attack) {
+    public void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public Integer getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 
-    public Integer getPieces() {
+    public int getPieces() {
         return pieces;
     }
 
-    public void setPieces(Integer pieces) {
+    public void setPieces(int pieces) {
         this.pieces = pieces;
     }
+
+    public int getScreen() { return screen; }
+
+    public void setScreen(int screen) { this.screen = screen; }
 
     public void closeInstance(){
         setUsername(null);
         setPassword(null);
-        setHealth(null);
-        setDefense(null);
-        setAttack(null);
-        setPieces(null);
-        setMoney(null);
+        setHealth(0);
+        setDefense(0);
+        setAttack(0);
+        setPieces(0);
+        setMoney(0);
+        setScreen(0);
     }
     //---------------------------------------------------//
 }

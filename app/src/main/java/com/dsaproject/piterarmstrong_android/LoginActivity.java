@@ -53,16 +53,14 @@ public class LoginActivity extends AppCompatActivity {
                     //The other parameters are set when doing getUser() when opening a new activity
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    //intent.putExtra("loggeduser", usr);
-
                     startActivity(intent);
                     finish(); //-----Response activity (close session - delete SHAREDPREFERENCES)
                 }
                 else{
                     if(response.code() == 404)
-                        Toast.makeText(getApplicationContext(), "Authentication error: " + response.code() + "\n Invalid username or password" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Authentication error: " + response.code() + "\nInvalid username or password" , Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getApplicationContext(), "Authentication error: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Authentication error: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
                 }
                 showProgress(false);
             }
@@ -75,10 +73,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void register(final String usrname, final String pwd){
+    public void register(final User usr){
         //Method register() of the Users API Interface
 
-        Call<Void> call = usersAPI.register(new User(usrname, pwd));
+        Call<Void> call = usersAPI.register(usr);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -86,22 +84,20 @@ public class LoginActivity extends AppCompatActivity {
 
                     //We "fill" the logged User instance
                     User loggedUsr = User.getInstance();
-                    loggedUsr.setUsername(usrname);
-                    loggedUsr.setPassword(pwd);
+                    loggedUsr.setUsername(usr.getUsername());
+                    loggedUsr.setPassword(usr.getPassword());
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    //intent.putExtra("loggeduser", usr);
-
                     startActivity(intent);
                     finish(); //-----Response activity (close session - delete SHAREDPREFERENCES)
                 }
                 else{
                     if(response.code() == 400)
-                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\n Bad Request (Error in parameters' format)" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\nBad Request (Error in parameters' format)" , Toast.LENGTH_LONG).show();
                     else if(response.code() == 409)
-                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\n Already existing User" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\nAlready existing User" , Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Register error: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
                 }
                 showProgress(false);
             }
@@ -160,6 +156,8 @@ public class LoginActivity extends AppCompatActivity {
             //pwdtxt.setInputType(TYPE_NULL);
 
             showProgress(true);
+
+
             //login with the user stored in SHARED PREFERENCES
         }
 
@@ -174,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error: you must fill User Name and Password fields", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    login(new User(usrtxt.getText().toString(), pwdtxt.getText().toString()));
+                    login(new User(usrtxt.getText().toString(), pwdtxt.getText().toString(), 0, 0, 0, 0, 0, 0));
                 }
             }
         });
@@ -189,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Error: you must fill User Name and Password fields", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    register(usrtxt.getText().toString(), pwdtxt.getText().toString());
+                    register(new User(usrtxt.getText().toString(), pwdtxt.getText().toString(), 0, 0, 0, 0, 0, 0));
                 }
             }
         });

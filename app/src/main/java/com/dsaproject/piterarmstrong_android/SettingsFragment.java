@@ -23,13 +23,13 @@ import retrofit2.Response;
 public class SettingsFragment extends Fragment {
 
     private UserManagerService usersAPI;
-    Context context;
+    private Context context;
 
     //---------------------------------------------------------API Methods------------------------------------------------------------//
     public void changePassword(final String newpwd){
         //Method updateUser() of the Users API Interface
 
-        Call<Void> call = usersAPI.updateUser(new User(User.getInstance().getUsername(), newpwd, User.getInstance().getHealth(), User.getInstance().getDefense(), User.getInstance().getAttack(), User.getInstance().getMoney(), User.getInstance().getPieces()), User.getInstance().getUsername());
+        Call<Void> call = usersAPI.updateUser(new User(User.getInstance().getUsername(), newpwd, User.getInstance().getHealth(), User.getInstance().getDefense(), User.getInstance().getAttack(), User.getInstance().getMoney(), User.getInstance().getPieces(), User.getInstance().getScreen()), User.getInstance().getUsername());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -42,9 +42,9 @@ public class SettingsFragment extends Fragment {
                 }
                 else{
                     if(response.code() == 400)
-                        Toast.makeText(context, "Error changing password: " + response.code() + "\n Bad Event (Error in parameter's format)", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Error changing password: " + response.code() + "\nBad Event (Error in parameter's format)", Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(context, "Error changing password: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Error changing password: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -69,7 +69,7 @@ public class SettingsFragment extends Fragment {
                     getActivity().finish();
                 }
                 else{
-                    Toast.makeText(context, "Error deleting User: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Error deleting User: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
                 }
             }
 

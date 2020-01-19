@@ -48,7 +48,7 @@
         android:id="@+id/changepwdtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Change your Password:"
         android:textSize="24sp"
@@ -70,7 +70,7 @@
         android:id="@+id/logoutButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/button_rounded_border_accent"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="@+id/changePwdButton"
@@ -92,13 +92,14 @@
         android:id="@+id/appinfotext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif"
         android:text="Piter Armstrong: The Video Game.                                                      Created by Marc Cayuelas, Julen Garralaga, Alex López and  Bernat Sánchez, students of DSA at EETAC (UPC)                                               https://github.com/marc285/PiterArmstrong-Android"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/deleteUserButton"
-        app:layout_constraintStart_toStartOf="@+id/deleteUserButton" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/deleteUserButton"
+        app:layout_constraintTop_toBottomOf="@+id/infodeletetext" />
 
     <TextView
         android:id="@+id/infodeletetext"

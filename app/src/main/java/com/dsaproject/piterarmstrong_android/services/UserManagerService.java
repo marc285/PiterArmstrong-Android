@@ -1,5 +1,6 @@
 package com.dsaproject.piterarmstrong_android.services;
 
+import com.dsaproject.piterarmstrong_android.models.Objeto;
 import com.dsaproject.piterarmstrong_android.models.User;
 
 import java.util.List;
@@ -14,23 +15,30 @@ import retrofit2.http.Path;
 
 public interface UserManagerService {
 
-    @POST("/usermanager/login")
-    Call<User> login(@Body User usr);
+    @POST("usermanager/login/")
+    Call <User> login(@Body User usr);
 
-    @POST("/usermanager/register")
-    Call<Void> register(@Body User usr);
+    @POST("usermanager/register")
+    Call <Void> register(@Body User usr);
 
-    @GET("/usermanager/users")
+    @GET("usermanager/users")
     Call <List<User>> getUsers();
 
-    @GET("/usermanager/users/{name}")
+    @GET("usermanager/users/{name}")
     Call <User> getUser(@Path("name") String usrname);
 
-    @PUT("/usermanager/users/{name}/update")
+    @PUT("usermanager/users/{name}/update")
     Call <Void> updateUser(@Body User usr, @Path("name") String usrname);
 
-    @DELETE("/usermanager/users/{name}/delete")
+    @DELETE("usermanager/users/{name}/delete")
     Call <Void> deleteUser(@Body String pwd, @Path("name") String usrname);
 
-    //Objects functions
+    @GET("usermanager/users/{name}/screen")
+    Call <String> getUserScreen(@Path("name") String usrname);
+
+    @GET("usermanager/users/{name}/objects")
+    Call <Objeto> getUserObjects(@Path("name") String usrname);
+
+    @POST("usermanager/users/{name}/addobject")
+    Call <Void> addObjectToUser(@Path("name") String usrname, String obj);
 }

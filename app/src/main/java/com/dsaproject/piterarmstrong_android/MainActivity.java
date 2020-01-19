@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.dsaproject.piterarmstrong_android.models.Objeto;
 import com.dsaproject.piterarmstrong_android.models.User;
 import com.dsaproject.piterarmstrong_android.services.UserManagerService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,10 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    //public User userinstance = null;
-    private ProgressBar updatebar;
+    private BottomNavigationView bottomnNav;
+    //private ProgressBar updatebar;
     private UserManagerService usersAPI;
-    private List<User> userlist;
 
     //---------------------------------------------------------API Methods------------------------------------------------------------//
     public void updateStats(String usrname){
@@ -42,47 +43,50 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     //We "fill" the logged User instance
                     User loggedUsr = User.getInstance();
+                    loggedUsr.setPassword(response.body().getPassword());
                     loggedUsr.setHealth(response.body().getHealth());
                     loggedUsr.setDefense(response.body().getDefense());
-                    loggedUsr.setAttack(response.body().getDefense());
+                    loggedUsr.setAttack(response.body().getAttack());
                     loggedUsr.setPieces(response.body().getPieces());
                     loggedUsr.setMoney(response.body().getMoney());
-
-                    //OBJECTS
+                    loggedUsr.setScreen(response.body().getScreen());
                 }
                 else{
                     if(response.code() == 404)
-                        Toast.makeText(getApplicationContext(), "Error getting User statistics: " + response.code() + "\n Internal Server Error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
                 }
-                showProgress(false);
-
-                BottomNavigationView bottomnNav = findViewById(R.id.bottom_navigation_view);
-                bottomnNav.setOnNavigationItemSelectedListener(navListener);
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
+                //showProgress(false);
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                showProgress(false);
-
-                BottomNavigationView bottomnNav = findViewById(R.id.bottom_navigation_view);
-                bottomnNav.setOnNavigationItemSelectedListener(navListener);
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
+                //showProgress(false);
             }
         });
+
+        /*Call<Objeto> call2 = usersAPI.getUserObjects(User.getInstance().getUsername());
+        call2.enqueue(new Callback<Objeto>() {
+            @Override
+            public void onResponse(Call<Objeto> call, Response<Objeto> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Objeto> call, Throwable t) {
+
+            }
+        }); */
     }
     //--------------------------------------------------------------------------------------------------------------------------------//
 
-    public void showProgress (boolean visible){
+/*    public void showProgress (boolean visible){
         //Sets the visibility/invisibility of loginProgressBar
         if(visible)
             this.updatebar.setVisibility(View.VISIBLE);
         else
             this.updatebar.setVisibility(View.GONE);
-    }
+    }*/
 
     public void closeActivity(){
         this.finish();
@@ -95,21 +99,7 @@ public class MainActivity extends AppCompatActivity {
         this.getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        updatebar = findViewById(R.id.updateProgressBar);
-
-        //Receive the logged user
-        Intent intent = getIntent();
-        //User usr = (User)intent.getSerializableExtra("loggeduser");
-
-        //Singleton: single instance for the logged user
-        //userinstance = User.getInstance();
-        /*userinstance.setUsername(usr.getUsername());
-        userinstance.setPassword(usr.getPassword());
-        userinstance.setHealth(usr.getHealth());
-        userinstance.setDefense(usr.getDefense());
-        userinstance.setAttack(usr.getAttack());
-        userinstance.setPieces(usr.getPieces());
-        userinstance.setMoney(usr.getMoney());*/
+        //updatebar = findViewById(R.id.updateProgressBar);
 
         Retrofit retrofitinstance = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/dsaApp/") //Later on we will put the server's IP address, meanwhile in localhost
@@ -118,12 +108,13 @@ public class MainActivity extends AppCompatActivity {
 
         usersAPI = retrofitinstance.create(UserManagerService.class);
 
+        //showProgress(true);
         updateStats(User.getInstance().getUsername());
 
-        /*BottomNavigationView bottomnNav = findViewById(R.id.bottom_navigation_view);
+        bottomnNav = findViewById(R.id.bottom_navigation_view);
         bottomnNav.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();*/
     }
 
     @Override
