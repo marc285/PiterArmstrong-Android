@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dsaproject.piterarmstrong_android.models.User;
 import com.dsaproject.piterarmstrong_android.services.UserManagerService;
@@ -27,9 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UsersFragment extends Fragment {
 
     private RecyclerView usersRV;
+    private SwipeRefreshLayout updateusersrefresh;
 
     private UserManagerService usersAPI;
-    private Context context;
 
     //---------------------------------------------------------API Methods------------------------------------------------------------//
     public void updateUserList(){
@@ -43,12 +44,12 @@ public class UsersFragment extends Fragment {
                     usersRV.setAdapter(new UsersRVAdapter(response.body()));
                 }
                 else
-                    Toast.makeText(context, "Error getting Users List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Error getting Users List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -65,7 +66,8 @@ public class UsersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        usersRV = (RecyclerView) getView().findViewById(R.id.objectsRecyclerView);
+        usersRV = (RecyclerView) getView().findViewById(R.id.usersRecyclerView);
+        updateusersrefresh = (SwipeRefreshLayout) getView().findViewById(R.id.usersSwipeRefreshLayout);
 
         Retrofit retrofitinstance = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/dsaApp/") //Later on we will put the server's IP address, meanwhile in localhost
@@ -73,9 +75,16 @@ public class UsersFragment extends Fragment {
                 .build();
         usersAPI = retrofitinstance.create(UserManagerService.class);
 
-        usersRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        usersRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         updateUserList();
 
+        updateusersrefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateUserList();
+                updateusersrefresh.setRefreshing(false);
+            }
+        });
     }
 }

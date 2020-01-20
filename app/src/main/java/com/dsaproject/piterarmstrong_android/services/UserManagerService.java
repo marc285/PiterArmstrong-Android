@@ -27,10 +27,10 @@ public interface UserManagerService {
     @GET("usermanager/users/{name}")
     Call <User> getUser(@Path("name") String usrname);
 
-    @PUT("usermanager/users/{name}/update")
+    @POST("usermanager/users/{name}/update") //PUT
     Call <Void> updateUser(@Body User usr, @Path("name") String usrname);
 
-    @DELETE("usermanager/users/{name}/delete")
+    @POST("usermanager/users/{name}/delete") //DELETE
     Call <Void> deleteUser(@Body String pwd, @Path("name") String usrname);
 
     @GET("usermanager/users/{name}/screen")

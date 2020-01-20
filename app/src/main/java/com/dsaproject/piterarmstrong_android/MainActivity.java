@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     //We "fill" the logged User instance
                     User loggedUsr = User.getInstance();
                     loggedUsr.setPassword(response.body().getPassword());
+                    Log.i("MyActivity", "your current password is:" + User.getInstance().getPassword());
                     loggedUsr.setHealth(response.body().getHealth());
                     loggedUsr.setDefense(response.body().getDefense());
                     loggedUsr.setAttack(response.body().getAttack());

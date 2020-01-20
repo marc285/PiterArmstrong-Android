@@ -3,7 +3,9 @@ package com.dsaproject.piterarmstrong_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginbtn;
     private Button registerbtn;
     private ProgressBar loginbar;
+
     private UserManagerService usersAPI;
 
-    //SHARED PREFERENCES
     private Boolean authenticated; //Provisional
     //-------------------------------------------//
 
@@ -146,6 +148,8 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         usersAPI = retrofitinstance.create(UserManagerService.class);
+
+        //SharedPreferences sharedPrefs = getSharedPreferences("MySharedPreferences", MODE_APPEND);
 
         if(authenticated){
             // "invisible" Login to the backend's API REST

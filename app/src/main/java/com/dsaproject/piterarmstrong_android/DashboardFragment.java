@@ -1,9 +1,7 @@
 package com.dsaproject.piterarmstrong_android;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DashboardFragment extends Fragment {
 
-    SwipeRefreshLayout updaterefresh;
+    private SwipeRefreshLayout updateobjectsrefresh;
     private TextView usertxt;
     private TextView healthtxt;
     private TextView defensetxt;
@@ -117,7 +115,7 @@ public class DashboardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Initialize and fill all the Dashboard fields
-        updaterefresh = (SwipeRefreshLayout) getView().findViewById(R.id.statsSwipeRefreshLayout);
+        updateobjectsrefresh = (SwipeRefreshLayout) getView().findViewById(R.id.statsSwipeRefreshLayout);
         usertxt = (TextView) getView().findViewById(R.id.userTextView);
         healthtxt = (TextView) getView().findViewById(R.id.healthTextView);
         defensetxt = (TextView) getView().findViewById(R.id.defenseTextView);
@@ -138,12 +136,12 @@ public class DashboardFragment extends Fragment {
 
         updateStats(User.getInstance().getUsername());
 
-        updaterefresh.setOnRefreshListener(
+        updateobjectsrefresh.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
                         updateStats(User.getInstance().getUsername());
-                        updaterefresh.setRefreshing(false);
+                        updateobjectsrefresh.setRefreshing(false);
                     }
                 }
         );
