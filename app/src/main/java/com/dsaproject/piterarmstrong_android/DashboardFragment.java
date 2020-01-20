@@ -1,6 +1,7 @@
 package com.dsaproject.piterarmstrong_android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +45,6 @@ public class DashboardFragment extends Fragment {
     private Button playbtn;
 
     private UserManagerService usersAPI;
-    private Context context;
 
     //---------------------------------------------------------API Methods------------------------------------------------------------//
     public void updateStats(String usrname){
@@ -74,12 +74,12 @@ public class DashboardFragment extends Fragment {
                     screentxt.setText(String.valueOf(User.getInstance().getScreen()));
                 }
                 else
-                    Toast.makeText(context, "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Error getting User statistics: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -95,12 +95,12 @@ public class DashboardFragment extends Fragment {
                     objectsRV.setAdapter(new ObjectsRVAdapter(ObjetoList.getInstance().getList()));
                 }
                 else
-                    Toast.makeText(context, "Error getting User Object List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Error getting User Object List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<List<Objeto>> call, Throwable t) {
-                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -134,7 +134,7 @@ public class DashboardFragment extends Fragment {
                 .build();
         usersAPI = retrofitinstance.create(UserManagerService.class);
 
-        objectsRV.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        objectsRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         updateStats(User.getInstance().getUsername());
 
@@ -151,7 +151,8 @@ public class DashboardFragment extends Fragment {
         playbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(); GameActivity
+                Intent intent = new Intent(getActivity(), UnityActivity.class);
+                startActivity(intent);
             }
         });
     }

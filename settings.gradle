@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':PiterAmtrongExportUnityV2-debug'
 rootProject.name='PiterArmstrong-Android'
