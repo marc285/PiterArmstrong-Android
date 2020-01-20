@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.dsaproject.piterarmstrong_android.models.ObjetoList;
 import com.dsaproject.piterarmstrong_android.models.User;
 import com.dsaproject.piterarmstrong_android.services.UserManagerService;
 
@@ -64,10 +63,10 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    public void deleteUser(final String pwd, String usrname){
+    public void deleteUser(){
         //Method deleteUser() of the Users API Interface
 
-        Call<Void> call = usersAPI.deleteUser(pwd, usrname);
+        Call<Void> call = usersAPI.deleteUser(User.getInstance());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -152,7 +151,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(currentpwdtext.getText().toString().equals(User.getInstance().getPassword())) {
-                    deleteUser(currentpwdtext.getText().toString(), User.getInstance().getUsername());
+                    deleteUser();
                 }
                 else
                     Toast.makeText(getActivity(), "Error. Incorrect Password.", Toast.LENGTH_LONG).show();

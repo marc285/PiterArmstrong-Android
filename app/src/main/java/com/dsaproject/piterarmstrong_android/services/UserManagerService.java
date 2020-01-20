@@ -31,7 +31,7 @@ public interface UserManagerService {
     Call <Void> updateUser(@Body User usr, @Path("name") String usrname);
 
     @POST("usermanager/users/{name}/delete") //DELETE
-    Call <Void> deleteUser(@Body String pwd, @Path("name") String usrname);
+    Call <Void> deleteUser(@Body User us);
 
     @GET("usermanager/users/{name}/screen")
     Call <String> getUserScreen(@Path("name") String usrname);
