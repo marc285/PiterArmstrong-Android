@@ -90,7 +90,7 @@ public class DashboardFragment extends Fragment {
                     ObjetoList loggedUsrList = ObjetoList.getInstance();
                     loggedUsrList.setList(response.body());
 
-                    objectsRV.setAdapter(new ObjectsRVAdapter(ObjetoList.getInstance().getList()));
+                    objectsRV.setAdapter(new ObjectsRVAdapter(response.body()));
                 }
                 else
                     Toast.makeText(getActivity(), "Error getting User Object List: " + response.code() + "\nInternal Server Error", Toast.LENGTH_LONG).show();
